@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>展示所有的5星武器</title>
+</head>
+<body>
+<form>
+    <table>
+        <thead class="thead-inverse">
+        <tr>
+            <th>武器名称</th>
+            <th>稀有等级</th>
+            <th>武器等级</th>
+            <th>攻击力</th>
+            <th>武器描述</th>
+        </tr>
+
+        <tr th:each="weapon : ${weapons}">
+            <td th:text="${weapon.name}">12333</td>
+            <td th:text="${weapon.rare}">12333</td>
+            <td th:text="${weapon.level}">12333</td>
+            <td th:text="${weapon.ap}">12333</td>
+            <td th:text="${weapon.talent}">12333</td>
+        </tr>
+
+    </table>
+</form>
+</body>
+</html>
