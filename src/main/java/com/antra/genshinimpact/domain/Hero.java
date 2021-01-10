@@ -1,6 +1,7 @@
 package com.antra.genshinimpact.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,25 +20,26 @@ public class Hero {
 
     private Double dp;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "uid")
+    @ManyToOne
     private Account account;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hero_weapon", joinColumns = @JoinColumn(name = "hid"),
             inverseJoinColumns = @JoinColumn(name = "wid"))
-    private Set<Weapon> weapons;
+    private Set<Weapon> weapons = new HashSet<>();
 
     public Hero(){
 
     }
 
-    public Hero(String name, Integer level, String rare, Double ap, Double dp) {
+    public Hero(String name, Integer level, String rare, Double ap, Double dp, Account account) {
         this.name = name;
         this.level = level;
         this.rare = rare;
         this.ap = ap;
         this.dp = dp;
+
+        this.account = account;
     }
 
     public Long getHid() {

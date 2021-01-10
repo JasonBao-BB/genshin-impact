@@ -2,6 +2,8 @@ package com.antra.genshinimpact.controllers;
 
 
 import com.antra.genshinimpact.domain.Weapon;
+import com.antra.genshinimpact.exceptions.ErrorResponse;
+import com.antra.genshinimpact.exceptions.WeaponException;
 import com.antra.genshinimpact.service.WeaponService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,13 @@ public class WeaponController {
     * */
     @GetMapping("/{uid}") //localhost:8080/weapon/{uid}
     public ResponseEntity<Weapon> findById(@PathVariable("uid") Long id){
+
+        Weapon current = weaponService.findById(id);
+
+        if (current == null) {
+            throw new WeaponException("这把武器不存在");
+        }
+
         return new ResponseEntity<>(weaponService.findById(id), HttpStatus.OK);
     }
 
@@ -55,6 +64,11 @@ public class WeaponController {
     @DeleteMapping("/{uid}")
     public ResponseEntity<String> deleteById(@PathVariable("uid") Long id) {
         Weapon weapon = weaponService.findById(id);
+
+        if (weapon == null) {
+            throw new WeaponException("这把武器不存在");
+        }
+
         weaponService.deleteWeaponId(id);
         StringBuilder sb = new StringBuilder();
         sb.append("成功删除了 <" + weapon.getName() + ">");
@@ -85,5 +99,12 @@ public class WeaponController {
     }
 
 
+    @ExceptionHandler(WeaponException.class)
+    public ResponseEntity<ErrorResponse> weaponException(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setErrorCode(HttpStatus.NOT_FOUND.value());
+        errorResponse.setErrorMessage(ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
 
 }

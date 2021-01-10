@@ -1,6 +1,7 @@
 package com.antra.genshinimpact.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,7 +22,7 @@ public class Weapon {
     private String talent;
 
     @ManyToMany(mappedBy = "weapons")
-    private Set<Hero> heroes;
+    private Set<Hero> heroes= new HashSet<>();
 
     public Weapon(){
 

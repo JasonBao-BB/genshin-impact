@@ -1,6 +1,7 @@
 package com.antra.genshinimpact.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,8 +19,8 @@ public class Account {
 
     private String birth;
 
-    @OneToMany(mappedBy = "account")
-    private Set<Hero> heroSet;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "account")
+    private Set<Hero> heroSet = new HashSet<>();
 
     public Account(){
 
