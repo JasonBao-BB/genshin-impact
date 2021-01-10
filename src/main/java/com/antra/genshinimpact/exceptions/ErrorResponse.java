@@ -1,23 +1,13 @@
 package com.antra.genshinimpact.exceptions;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ErrorResponse {
 
     private Integer errorCode;
     private String errorMessage;
 
-    public void setErrorCode(Integer errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public Integer getErrorCode() {
-        return errorCode;
-    }
 }
